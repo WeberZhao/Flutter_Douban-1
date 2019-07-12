@@ -14,15 +14,29 @@ internal struct RGBColor: Hashable, Equatable {
 	let green: Int64
 	let blue: Int64
 	let alpha: Int64
-	let hashValue: Int
+//    let hashValue: Int
+    
+//    var hashValue : Int {
+//        get {
+//            let maxInt = Int64(Int32.max)
+//            return Int(((self.alpha << 24) | (self.red << 16) | (self.green << 8) | self.blue) % maxInt)
+//        }
+//    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.alpha)
+        hasher.combine(self.red)
+        hasher.combine(self.green)
+    }
+    
 
 	init(red: Int64, green: Int64, blue: Int64, alpha: Int64) {
 		self.red = red
 		self.green = green
 		self.blue = blue
 		self.alpha = alpha
-        let maxInt = Int64(Int32.max)
-		self.hashValue = Int(((alpha << 24) | (red << 16) | (green << 8) | blue) % maxInt)
+        
+//        self.hashValue = Int(((alpha << 24) | (red << 16) | (green << 8) | blue) % maxInt)
 	}
 
 	init(color: UIColor) {
